@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#120c13" />
+  <title>أ. منه خالد الهلبي | معلّمة مادة الرياضيات بطنطا</title>
+  <meta name="description" content="الموقع التعريفي للأستاذة منه خالد الهلبي — معلّمة مادة الرياضيات للمرحلتين الابتدائية والإعدادية بطنطا وعبر الإنترنت." />
+  <meta name="keywords" content="منه خالد الهلبي, منة الهلبي, رياضيات طنطا, رياضيات ابتدائي, رياضيات إعدادي, طنطا" />
+  <meta name="author" content="أ. منه خالد الهلبي" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:locale" content="ar_EG" />
+  <meta property="og:title" content="أ. منه خالد الهلبي | معلّمة مادة الرياضيات" />
+  <meta property="og:description" content="الموقع التعريفي للأستاذة منه خالد الهلبي — رياضيات للمرحلتين الابتدائية والإعدادية بطنطا وأونلاين." />
+  <meta property="og:image" content="teacher-portrait.jpg" />
+
+  <!-- Favicon SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231a1019'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23d4af37' stroke-width='2'/><text x='50' y='64' font-size='42' font-family='serif' fill='%23e08ba0' text-anchor='middle' font-weight='700'>م</text></svg>" />
+
+  <!-- Google Fonts: Alexandria & IBM Plex Sans Arabic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+</head>
+<body>
+  <!-- Preloader Screen -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-symbol">π &nbsp; ∑ &nbsp; √</div>
+      <div class="loader-name">أ. منه خالد الهلبي</div>
+      <div class="loader-title">معلّمة مادة الرياضيات • طنطا</div>
+      <div class="loader-progress">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+      <div class="loader-percent" id="loader-percent">0%</div>
+    </div>
+  </div>
+
+  <!-- Custom Magnetic Cursor (Desktop) -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <!-- Ambient Textures -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Reading Progress Bar -->
+  <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress-bar" id="progress-bar"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <nav class="nav" id="nav" role="navigation" aria-label="القائمة الرئيسية">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-mark">م.هـ</span>
+        <div class="logo-text">
+          <span class="logo-name">منه خالد الهلبي</span>
+          <span class="logo-sub">معلّمة رياضيات</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about" data-section="about">عنّي</a></li>
+        <li><a href="#method" data-section="method">أسلوب الشرح</a></li>
+        <li><a href="#stages" data-section="stages">المراحل والصفوف</a></li>
+        <li><a href="#system" data-section="system">نظام الحصص</a></li>
+        <li><a href="#contact" data-section="contact">تواصل معي</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="https://wa.me/201069687611" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-gold">تواصل واتساب</a>
+      </div>
+
+      <!-- Clean Mobile Menu Toggle Button -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobile-menu" type="button">
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="القائمة" aria-hidden="true">
+    <ul class="mobile-menu-links">
+      <li><a href="#hero">الرئيسية</a></li>
+      <li><a href="#about">عن المعلّمة</a></li>
+      <li><a href="#method">أسلوب الشرح</a></li>
+      <li><a href="#stages">المراحل والصفوف</a></li>
+      <li><a href="#system">نظام الحصص</a></li>
+      <li><a href="#contact">تواصل معي</a></li>
+    </ul>
+    <div class="mobile-menu-footer">
+      <span>أ. منه خالد الهلبي • طنطا</span>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ========================================================
+         HERO SECTION
+         ======================================================== -->
+    <section class="section section-hero" id="hero" aria-label="الصفحة الرئيسية">
+      <div class="hero-bg" aria-hidden="true">
+        <img src="hero-math-classroom.jpg" alt="قاعة أكاديمية الرياضيات" class="hero-bg-img" width="1920" height="1080" fetchpriority="high" />
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-meta">
+          <span class="meta-line" aria-hidden="true"></span>
+          <span class="meta-text">طنطا — محافظة الغربية</span>
+        </div>
+
+        <h1 class="hero-name">
+          <span class="name-line">أ. منه خالد</span>
+          <span class="name-line name-line--last">الهلبي</span>
+        </h1>
+
+        <p class="hero-title">معلّمة مادة الرياضيات للمرحلتين الابتدائية والإعدادية</p>
+        <p class="hero-tagline">
+          تبسيط مفاهيم الرياضيات وبناء الفهم خطوة بخطوة في بيئة تعليمية هادئة ومشجعة، لمساعدة الطالب على التميز والتفوق بثقة.
+        </p>
+
+        <div class="hero-chips">
+          <span class="h-chip">📐 تبسيط وتأسيس</span>
+          <span class="h-chip">🎯 متابعة واهتمام فردي</span>
+          <span class="h-chip">📍 طنطا & أونلاين</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#about" class="btn btn-primary-lux">تعرّف عليّ أكثر</a>
+          <a href="https://wa.me/201069687611?text=السلام%20عليكم%20أستاذة%20منه،%20أود%20الاستفسار%20عن%20دروس%20الرياضيات" class="btn btn-whatsapp-lux" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span>تواصل عبر واتساب</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span class="hint-text">عن المعلّمة والمنهج</span>
+        <div class="hint-line"></div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         ABOUT SECTION WITH REAL PHOTO
+         ======================================================== -->
+    <section class="section section-about" id="about" aria-labelledby="about-heading">
+      <div class="about-grid">
+        <div class="about-portrait-wrap">
+          <div class="portrait-frame">
+            <div class="portrait-glow" aria-hidden="true"></div>
+            <img src="teacher-portrait.jpg" alt="أ. منه خالد الهلبي" class="portrait-img" width="768" height="1024" loading="lazy" />
+            <div class="portrait-overlay" aria-hidden="true"></div>
+            <div class="portrait-shine" aria-hidden="true"></div>
+          </div>
+          <span class="portrait-caption">أ. منه خالد الهلبي • معلّمة مادة الرياضيات</span>
+        </div>
+
+        <div class="about-body">
+          <div class="about-heading">
+            <span class="section-label">01 • عن المعلّمة</span>
+            <h2 class="section-title" id="about-heading">أ. منه خالد الهلبي</h2>
+          </div>
+          <p class="about-lead">
+            معلّمة مادة الرياضيات للمرحلتين الابتدائية والإعدادية بمدينة طنطا.
+          </p>
+          <p class="about-text">
+            رسالتي التعليمية تنطلق من تبسيط مادة الرياضيات وجعلها تجربة تعليمية ممتعة وسلسة لكل طالب، وبناء أساس علمي متين يرافق أبناءنا وبناتنا في كافة مراحلهم الدراسية بثقة وتميز.
+          </p>
+          <p class="about-text">
+            أؤمن بأن كل طالب قادر على التفوق متى ما توفر له الشرح الواضح المتدرج والبيئة التعليمية الإيجابية الهادئة التي تشجعه على المشاركة والتفكير المستقل.
+          </p>
+
+          <!-- ركائز التدريس الأكاديمي -->
+          <div class="about-pillars">
+            <div class="pillar-item">
+              <span class="pillar-icon">✨</span>
+              <div class="pillar-content">
+                <strong>التبسيط والتدرج:</strong>
+                <span>توصيل المفاهيم الرياضية بخطوات واضحة وسلسة تناسب استيعاب الطالب.</span>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <span class="pillar-icon">🌱</span>
+              <div class="pillar-content">
+                <strong>التشجيع وبناء الثقة:</strong>
+                <span>توفير بيئة إيجابية محفزة تجعل الطالب يشارك ويفكر بثقة ودون تردد.</span>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <span class="pillar-icon">🎯</span>
+              <div class="pillar-content">
+                <strong>المتابعة المستمرة:</strong>
+                <span>متابعة دقيقة لمستوى الطالب وتصحيح التمارين لضمان الفهم التام والتفوق.</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="about-text about-text--emphasis">
+            "الفهم السليم والتأسيس المتدرج هما أساس التميز والنجاح الدائم في مادة الرياضيات."
+          </p>
+
+          <div class="about-meta">
+            <div class="meta-item">
+              <span class="meta-label">المدينة</span>
+              <span class="meta-value">طنطا — الغربية</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">التخصص</span>
+              <span class="meta-value">مادة الرياضيات</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">المراحل المشمولة</span>
+              <span class="meta-value">الابتدائية & الإعدادية</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">نظام التدريس</span>
+              <span class="meta-value">حضوري بطنطا + أونلاين</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         ACADEMIC MATH QUOTE
+         ======================================================== -->
+    <section class="section section-quote" aria-label="رؤية تعليمية">
+      <div class="quote-inner">
+        <div class="math-crest-symbols">∑ &nbsp; • &nbsp; π &nbsp; • &nbsp; √ &nbsp; • &nbsp; ∆</div>
+        <blockquote class="quote-text">
+          "الرياضيات رياضة العقل؛ تبدأ بفهم الفكرة، وتثبت بالممارسة والحل المنتظم."
+        </blockquote>
+        <span class="quote-author">— أ. منه خالد الهلبي</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         METHOD SECTION
+         ======================================================== -->
+    <section class="section section-method" id="method" aria-labelledby="method-heading">
+      <div class="method-header">
+        <span class="section-label">02 • أسلوب الشرح</span>
+        <h2 class="section-title" id="method-heading">خطواتنا في الحصة للوصول لأفضل استيعاب</h2>
+        <p class="method-subtitle">أسلوب هادئ ومتدرج يراعي استيعاب الطالب ويجعله يشارك بثقة.</p>
+      </div>
+
+      <div class="method-stage" id="method-stage">
+        <div class="method-steps">
+          <article class="method-step is-active" data-step="1" tabindex="0">
+            <div class="step-num">01</div>
+            <h3 class="step-title">الشرح المبسط</h3>
+            <p class="step-desc">توضيح فكرة الدرس بأمثلة ميسرة وسهلة الفهم قبل البدء في حل المسائل.</p>
+          </article>
+          <article class="method-step" data-step="2" tabindex="0">
+            <div class="step-num">02</div>
+            <h3 class="step-title">التطبيق المتدرج</h3>
+            <p class="step-desc">البدء بالتمارين المباشرة ثم التدرج لمسائل الأفكار خطوة بخطوة وبكل هدوء.</p>
+          </article>
+          <article class="method-step" data-step="3" tabindex="0">
+            <div class="step-num">03</div>
+            <h3 class="step-title">التدريب العملي</h3>
+            <p class="step-desc">تشجيع الطالب على الحل بنفسه وتصحيح الخطأ فوراً لاكتساب الثقة بالنفس.</p>
+          </article>
+          <article class="method-step" data-step="4" tabindex="0">
+            <div class="step-num">04</div>
+            <h3 class="step-title">المتابعة الدورية</h3>
+            <p class="step-desc">متابعة الواجبات وإجراء تدريبات مستمرة لضمان تثبيت المعلومة في الذاكرة.</p>
+          </article>
+        </div>
+        <div class="method-progress" aria-hidden="true">
+          <div class="method-progress-bar" id="method-progress-bar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         STAGES & GRADES SECTION
+         ======================================================== -->
+    <section class="section section-stages" id="stages" aria-labelledby="stages-heading">
+      <div class="stages-header">
+        <span class="section-label">03 • المراحل الدراسية</span>
+        <h2 class="section-title" id="stages-heading">المراحل والصفوف التعليمية</h2>
+      </div>
+
+      <div class="stages-grid">
+        <!-- المرحلة الابتدائية -->
+        <div class="stage-card stage-card--primary">
+          <div class="stage-card-header">
+            <span class="stage-tag">المرحلة الأولى</span>
+            <h3 class="stage-title">المرحلة الابتدائية</h3>
+            <p class="stage-grades">الصفوف: الرابع والخامس والسادس الابتدائي</p>
+          </div>
+          <div class="stage-features">
+            <div class="s-feature">
+              <span class="s-icon">🌱</span>
+              <div>
+                <strong>التأسيس والفهم المبسط:</strong>
+                <span>شرح المنهج بأسلوب سهل وممتع يحبب الطالب في مادة الرياضيات.</span>
+              </div>
+            </div>
+            <div class="s-feature">
+              <span class="s-icon">✏️</span>
+              <div>
+                <strong>التدريب والتطبيق العملي:</strong>
+                <span>تدريب مستمر على حل التمارين لبناء الثقة والاعتماد على النفس.</span>
+              </div>
+            </div>
+          </div>
+          <a href="https://wa.me/201069687611?text=السلام%20عليكم%20أستاذة%20منه،%20أود%20الاستفسار%20عن%20دروس%20المرحلة%20الابتدائية" target="_blank" rel="noopener noreferrer" class="btn btn-stage">استفسار للمرحلة الابتدائية</a>
+        </div>
+
+        <!-- المرحلة الإعدادية -->
+        <div class="stage-card stage-card--prep">
+          <div class="stage-card-header">
+            <span class="stage-tag">المرحلة الثانية</span>
+            <h3 class="stage-title">المرحلة الإعدادية</h3>
+            <p class="stage-grades">الصفوف: الأول والثاني والثالث الإعدادي</p>
+          </div>
+          <div class="stage-features">
+            <div class="s-feature">
+              <span class="s-icon">📐</span>
+              <div>
+                <strong>تبسيط المفاهيم والقواعد:</strong>
+                <span>شرح منظم وتوضيح الأفكار بطريقة سلسة تضمن ثبات الفهم.</span>
+              </div>
+            </div>
+            <div class="s-feature">
+              <span class="s-icon">🎯</span>
+              <div>
+                <strong>المتابعة والتأهيل المستمر:</strong>
+                <span>مراجعات دورية وتأهيل شامل للامتحانات لتحقيق أفضل الدرجات.</span>
+              </div>
+            </div>
+          </div>
+          <a href="https://wa.me/201069687611?text=السلام%20عليكم%20أستاذة%20منه،%20أود%20الاستفسار%20عن%20دروس%20المرحلة%20الإعدادية" target="_blank" rel="noopener noreferrer" class="btn btn-stage">استفسار للمرحلة الإعدادية</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SYSTEM SECTION (طنطا وأونلاين)
+         ======================================================== -->
+    <section class="section section-system" id="system" aria-labelledby="system-heading">
+      <div class="system-header">
+        <span class="section-label">04 • طبيعة الحصص</span>
+        <h2 class="section-title" id="system-heading">نظام وطبيعة الحصص</h2>
+        <p class="system-sub">نفس الاهتمام والشرح الهادئ والمتابعة سواء حضورياً في طنطا أو عبر الإنترنت.</p>
+      </div>
+
+      <div class="system-grid">
+        <div class="system-box box-offline">
+          <div class="box-badge">حضوري في طنطا</div>
+          <h3 class="box-title">الحصص الحضورية (طنطا)</h3>
+          <p class="box-desc">شرح وتدريب يركز على استيعاب كل طالب، في بيئة مريحة وهادئة تضمن أفضل تركيز.</p>
+          <ul class="box-list">
+            <li>شرح مباشر وتطبيق خطوة بخطوة للتمارين</li>
+            <li>متابعة مستمرة وتصحيح الواجبات أولاً بأول</li>
+            <li>أماكن مناسبة يسهل الوصول إليها في طنطا</li>
+          </ul>
+        </div>
+
+        <div class="system-box box-online">
+          <div class="box-badge box-badge--rose">أونلاين (Zoom)</div>
+          <h3 class="box-title">الحصص عبر الإنترنت</h3>
+          <p class="box-desc">حصص تفاعلية مباشرة عبر Zoom تناسب الطلاب في مختلف الأماكن وتوفر وقت الانتقال.</p>
+          <ul class="box-list">
+            <li>شرح تفاعلي مباشر وتواصل لحظي مع الطالب</li>
+            <li>متابعة دورية للواجبات وإرسال الملاحظات بانتظام</li>
+            <li>مناسب لطلاب كافة المحافظات والمغتربين</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         CONTACT SECTION (CLEAN & DIRECT - NO PHONE CALL BUTTON)
+         ======================================================== -->
+    <section class="section section-contact" id="contact" aria-labelledby="contact-heading">
+      <div class="contact-wrap">
+        <div class="contact-header">
+          <span class="section-label">05 • تواصل معي</span>
+          <h2 class="section-title" id="contact-heading">قنوات التواصل المباشرة</h2>
+          <p class="contact-sub">يسعدني تواصلكم للاستفسار عن المواعيد وتفاصيل الدروس عبر القنوات التالية:</p>
+        </div>
+
+        <div class="contact-cards-grid">
+          <!-- WhatsApp Card -->
+          <a href="https://wa.me/201069687611" target="_blank" rel="noopener noreferrer" class="c-card c-card--whatsapp">
+            <div class="c-card-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="c-card-info">
+              <span class="c-card-title">واتساب</span>
+              <span class="c-card-val" dir="ltr">01069687611</span>
+              <span class="c-card-hint">اضغط للمحادثة المباشرة</span>
+            </div>
+          </a>
+
+          <!-- Facebook Card -->
+          <a href="https://www.facebook.com/share/19qaX5EXpC/" target="_blank" rel="noopener noreferrer" class="c-card c-card--facebook">
+            <div class="c-card-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <div class="c-card-info">
+              <span class="c-card-title">فيسبوك</span>
+              <span class="c-card-val">صفحة أ. منه خالد الهلبي</span>
+              <span class="c-card-hint">متابعة المنشورات والرسائل</span>
+            </div>
+          </a>
+
+          <!-- Email Card -->
+          <a href="mailto:mennaalhalabi848@gmail.com" class="c-card c-card--email">
+            <div class="c-card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div class="c-card-info">
+              <span class="c-card-title">البريد الإلكتروني</span>
+              <span class="c-card-val">mennaalhalabi848@gmail.com</span>
+              <span class="c-card-hint">إرسال استفسار عبر الإيميل</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       FOOTER
+       ======================================================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-name">أ. منه خالد الهلبي</span>
+        <span class="footer-title">معلّمة مادة الرياضيات • طنطا</span>
+      </div>
+      <div class="footer-links">
+        <a href="#about">عنّي</a>
+        <a href="#stages">المراحل</a>
+        <a href="https://wa.me/201069687611" target="_blank" rel="noopener noreferrer">واتساب</a>
+        <a href="https://www.facebook.com/share/19qaX5EXpC/" target="_blank" rel="noopener noreferrer">فيسبوك</a>
+        <a href="mailto:mennaalhalabi848@gmail.com">إيميل</a>
+      </div>
+      <div class="footer-copy">
+        <span>© <span id="year">2026</span> أ. منه خالد الهلبي • جميع الحقوق محفوظة</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript -->
+  <script src="app.js" defer></script>
+</body>
+</html>
