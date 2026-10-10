@@ -468,6 +468,118 @@
   };
 
   /* ========================================================
+     نظام حماية وتشفير صورة الأستاذة (Secure Canvas & Anti-Screenshot)
+     ======================================================== */
+  function initSecurePortrait() {
+    const canvas = document.getElementById("portraitCanvas");
+    const frame = document.getElementById("securePortraitFrame");
+    const shield = document.getElementById("portraitShield");
+    if (!canvas || !frame) return;
+
+    const ctx = canvas.getContext("2d", { willReadFrequently: false });
+
+    // 1. فك تشفير بيانات الصورة من الذاكرة (XOR + Base64 Decryption)
+    if (window.__SECURE_PAYLOAD) {
+      try {
+        const binaryStr = atob(window.__SECURE_PAYLOAD);
+        const len = binaryStr.length;
+        const bytes = new Uint8Array(len);
+        const key = "MennaKhaledElhelbyMath2026";
+        const keyLen = key.length;
+
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryStr.charCodeAt(i) ^ key.charCodeAt(i % keyLen);
+        }
+
+        // مسح الـ payload المشفر فوراً من ذاكرة الـ window
+        window.__SECURE_PAYLOAD = null;
+
+        const blob = new Blob([bytes], { type: "image/jpeg" });
+        const blobUrl = URL.createObjectURL(blob);
+        const img = new Image();
+
+        img.onload = function () {
+          const cw = canvas.width;
+          const ch = canvas.height;
+          ctx.drawImage(img, 0, 0, cw, ch);
+
+          // 2. دمج علامة مائية رقمية دائمة مباشرة على بكسلات الصورة
+          drawBakedWatermark(ctx, cw, ch);
+
+          // إتلاف رابط الـ Blob المؤقت فوراً
+          URL.revokeObjectURL(blobUrl);
+        };
+
+        img.src = blobUrl;
+      } catch (err) {
+        console.warn("Security engine initialized with fallback.");
+      }
+    }
+
+    function drawBakedWatermark(context, w, h) {
+      context.save();
+      // علامة مائية أنيقة شفافة في أسفل الصورة
+      context.fillStyle = "rgba(18, 12, 19, 0.45)";
+      context.fillRect(0, h - 50, w, 50);
+
+      context.font = "bold 20px Alexandria, sans-serif";
+      context.fillStyle = "rgba(255, 255, 255, 0.45)";
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.shadowColor = "rgba(0, 0, 0, 0.7)";
+      context.shadowBlur = 4;
+      context.fillText("أ. منه خالد الهلبي • جميع الحقوق محفوظة", w / 2, h - 25);
+      context.restore();
+    }
+
+    // 3. منع كليك يمين والسحب والإفلات والحفظ
+    const preventAll = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    };
+
+    [frame, canvas, shield].forEach((el) => {
+      if (el) {
+        el.addEventListener("contextmenu", preventAll);
+        el.addEventListener("dragstart", preventAll);
+        el.addEventListener("selectstart", preventAll);
+        el.addEventListener("copy", preventAll);
+      }
+    });
+
+    // 4. الحماية الذكية من لقطات الشاشة (Anti-Screenshot Guard)
+    // عند فتح أداة القص أو مغادرة التركيز عن الصفحة (window blur)
+    window.addEventListener("blur", () => {
+      frame.classList.add("is-guarded");
+    });
+
+    window.addEventListener("focus", () => {
+      frame.classList.remove("is-guarded");
+    });
+
+    // عند الضغط على مفتاح تصوير الشاشة (PrintScreen)
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "PrintScreen" || e.keyCode === 44) {
+        frame.classList.add("is-guarded");
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText("").catch(() => {});
+        }
+        setTimeout(() => frame.classList.remove("is-guarded"), 2500);
+      }
+    });
+
+    // حظر اختصارات حفظ الصفحة أو الطباعة أو أدوات المطور
+    window.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "p" || e.key === "u")) {
+        e.preventDefault();
+        frame.classList.add("is-guarded");
+        setTimeout(() => frame.classList.remove("is-guarded"), 2000);
+      }
+    });
+  }
+
+  /* ========================================================
      تشغيل الموقع
      ======================================================== */
   function initSite() {
@@ -478,6 +590,7 @@
     initNav();
     initMethod();
     initAnimations();
+    initSecurePortrait();
   }
 
   if (document.readyState === "loading") {

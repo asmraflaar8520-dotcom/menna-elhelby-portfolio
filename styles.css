@@ -939,13 +939,111 @@ button {
     0 0 35px var(--gold-glow);
 }
 
-.portrait-img {
+.portrait-img,
+.portrait-canvas {
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
-  object-position: 50% 18%; /* يضمن ظهور الوجه والنظارة والابتسامة في منتصف الإطار */
+  object-position: 50% 18%;
   aspect-ratio: 3/4;
+  border-radius: 16px;
+  transition: filter 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease;
+  will-change: filter, transform;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.portrait-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  background: transparent;
+}
+
+.portrait-watermark {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  left: 14px;
+  z-index: 8;
+  pointer-events: none;
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(18, 12, 19, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.portrait-guard-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 12, 19, 0.9);
+  backdrop-filter: blur(28px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.portrait-frame.is-guarded .portrait-canvas {
+  filter: blur(35px) brightness(0.45);
+}
+
+.portrait-frame.is-guarded .portrait-guard-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.guard-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(35, 22, 34, 0.88);
+  border: 1px solid var(--border-strong);
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.guard-icon {
+  font-size: 1.8rem;
+}
+
+.guard-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--beige-primary);
+}
+
+.guard-sub {
+  font-size: 0.78rem;
+  color: var(--rose-light);
+}
+
+@media print {
+  #portraitCanvas,
+  .portrait-frame,
+  .about-portrait-wrap {
+    display: none !important;
+  }
 }
 
 .portrait-glow {
@@ -1180,8 +1278,87 @@ button {
   max-width: 32em;
 }
 
-.method-stage {
+.method-content-grid {
   max-width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  gap: 2.25rem;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .method-content-grid {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 3.5rem;
+  }
+}
+
+.method-visual-showcase {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+}
+
+.method-visual-frame {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.65),
+    0 0 0 1px var(--rose-glow),
+    0 0 35px var(--gold-glow);
+}
+
+.method-visual-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 3/4;
+}
+
+.method-visual-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 65%, rgba(18, 12, 19, 0.85) 100%);
+}
+
+.method-visual-badge {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  left: 14px;
+  background: rgba(26, 16, 25, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  padding: 8px 14px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--beige-primary);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  flex-shrink: 0;
+}
+
+.method-stage {
+  width: 100%;
   margin-inline: auto;
 }
 
@@ -1194,9 +1371,15 @@ button {
   overflow: hidden;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) and (max-width: 959px) {
   .method-steps {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .method-steps {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

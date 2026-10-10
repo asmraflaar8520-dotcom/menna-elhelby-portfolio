@@ -34,6 +34,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="secure-payload.js" defer></script>
 </head>
 <body>
   <!-- Preloader Screen -->
@@ -163,13 +164,23 @@
     <section class="section section-about" id="about" aria-labelledby="about-heading">
       <div class="about-grid">
         <div class="about-portrait-wrap">
-          <div class="portrait-frame">
+          <div class="portrait-frame" id="securePortraitFrame">
             <div class="portrait-glow" aria-hidden="true"></div>
-            <img src="teacher-portrait.jpg" alt="أ. منه خالد الهلبي — معلّمة مادة الرياضيات (حضوري & أونلاين)" class="portrait-img" width="768" height="1024" loading="lazy" />
-            <div class="portrait-overlay" aria-hidden="true"></div>
+            <canvas id="portraitCanvas" class="portrait-canvas" width="768" height="1024" aria-label="أ. منه خالد الهلبي"></canvas>
+            <div class="portrait-shield" id="portraitShield" aria-hidden="true"></div>
+            <div class="portrait-watermark" aria-hidden="true">
+              <span>أ. منه خالد الهلبي • محتوى تعليمي محمي</span>
+            </div>
+            <div class="portrait-guard-overlay" id="portraitGuardOverlay" aria-hidden="true">
+              <div class="guard-card">
+                <span class="guard-icon">🛡️</span>
+                <span class="guard-title">محتوى خاص ومحمي</span>
+                <span class="guard-sub">حقوق النشر محفوظة للأستاذة منه خالد الهلبي</span>
+              </div>
+            </div>
             <div class="portrait-shine" aria-hidden="true"></div>
           </div>
-          <span class="portrait-caption">أ. منه خالد الهلبي • تدريس حضوري & أونلاين</span>
+          <span class="portrait-caption">أ. منه خالد الهلبي • معلّمة مادة الرياضيات</span>
         </div>
 
         <div class="about-body">
@@ -261,31 +272,46 @@
         <p class="method-subtitle">أسلوب هادئ ومتدرج يراعي استيعاب الطالب ويجعله يشارك بثقة.</p>
       </div>
 
-      <div class="method-stage" id="method-stage">
-        <div class="method-steps">
-          <article class="method-step is-active" data-step="1" tabindex="0">
-            <div class="step-num">01</div>
-            <h3 class="step-title">الشرح المبسط</h3>
-            <p class="step-desc">توضيح فكرة الدرس بأمثلة ميسرة وسهلة الفهم قبل البدء في حل المسائل.</p>
-          </article>
-          <article class="method-step" data-step="2" tabindex="0">
-            <div class="step-num">02</div>
-            <h3 class="step-title">التطبيق المتدرج</h3>
-            <p class="step-desc">البدء بالتمارين المباشرة ثم التدرج لمسائل الأفكار خطوة بخطوة وبكل هدوء.</p>
-          </article>
-          <article class="method-step" data-step="3" tabindex="0">
-            <div class="step-num">03</div>
-            <h3 class="step-title">التدريب العملي</h3>
-            <p class="step-desc">تشجيع الطالب على الحل بنفسه وتصحيح الخطأ فوراً لاكتساب الثقة بالنفس.</p>
-          </article>
-          <article class="method-step" data-step="4" tabindex="0">
-            <div class="step-num">04</div>
-            <h3 class="step-title">المتابعة الدورية</h3>
-            <p class="step-desc">متابعة الواجبات وإجراء تدريبات مستمرة لضمان تثبيت المعلومة في الذاكرة.</p>
-          </article>
+      <div class="method-content-grid">
+        <!-- Visual Classroom & Studio Card -->
+        <div class="method-visual-showcase">
+          <div class="method-visual-frame">
+            <div class="method-visual-glow" aria-hidden="true"></div>
+            <img src="teaching-method-visual.jpg" alt="بيئة تدريس مادة الرياضيات — حضوري وأونلاين" class="method-visual-img" width="896" height="1200" loading="lazy" />
+            <div class="method-visual-overlay" aria-hidden="true"></div>
+            <div class="method-visual-badge">
+              <span class="badge-dot"></span>
+              <span>شرح حضوري مباشر & أونلاين تفاعلي</span>
+            </div>
+          </div>
         </div>
-        <div class="method-progress" aria-hidden="true">
-          <div class="method-progress-bar" id="method-progress-bar"></div>
+
+        <div class="method-stage" id="method-stage">
+          <div class="method-steps">
+            <article class="method-step is-active" data-step="1" tabindex="0">
+              <div class="step-num">01</div>
+              <h3 class="step-title">الشرح المبسط</h3>
+              <p class="step-desc">توضيح فكرة الدرس بأمثلة ميسرة وسهلة الفهم قبل البدء في حل المسائل.</p>
+            </article>
+            <article class="method-step" data-step="2" tabindex="0">
+              <div class="step-num">02</div>
+              <h3 class="step-title">التطبيق المتدرج</h3>
+              <p class="step-desc">البدء بالتمارين المباشرة ثم التدرج لمسائل الأفكار خطوة بخطوة وبكل هدوء.</p>
+            </article>
+            <article class="method-step" data-step="3" tabindex="0">
+              <div class="step-num">03</div>
+              <h3 class="step-title">التدريب العملي</h3>
+              <p class="step-desc">تشجيع الطالب على الحل بنفسه وتصحيح الخطأ فوراً لاكتساب الثقة بالنفس.</p>
+            </article>
+            <article class="method-step" data-step="4" tabindex="0">
+              <div class="step-num">04</div>
+              <h3 class="step-title">المتابعة الدورية</h3>
+              <p class="step-desc">متابعة الواجبات وإجراء تدريبات مستمرة لضمان تثبيت المعلومة في الذاكرة.</p>
+            </article>
+          </div>
+          <div class="method-progress" aria-hidden="true">
+            <div class="method-progress-bar" id="method-progress-bar"></div>
+          </div>
         </div>
       </div>
     </section>
