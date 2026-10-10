@@ -715,20 +715,25 @@ button {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight: 900;
-  line-height: 1.12;
-  margin-bottom: 0.7rem;
+  line-height: 1.26;
+  margin-bottom: 1.1rem;
   color: var(--beige-primary);
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
 }
 
 .name-line { display: block; }
-.name-line--last { color: var(--rose-light); }
+.name-line--last {
+  color: var(--rose-light);
+  display: block;
+  padding-bottom: 0.25rem;
+}
 
 .hero-title {
   font-size: clamp(1rem, 1.8vw, 1.22rem);
   font-weight: 600;
+  line-height: 1.5;
   color: var(--gold-primary);
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.95rem;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }
 
@@ -848,11 +853,18 @@ button {
   .hero-meta { justify-content: center; }
   .hero-name {
     font-size: clamp(1.85rem, 8vw, 2.45rem);
-    margin-bottom: 0.3rem;
+    line-height: 1.32;
+    margin-bottom: 1rem;
+  }
+  .name-line--last {
+    display: block;
+    padding-bottom: 0.35rem;
   }
   .hero-title {
     font-size: 0.95rem;
-    margin-bottom: 0.55rem;
+    line-height: 1.55;
+    margin-bottom: 0.75rem;
+    padding-top: 0.15rem;
   }
   .hero-tagline {
     text-align: center;
