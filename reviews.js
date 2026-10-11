@@ -115,4 +115,33 @@
       }
     }
   }
+
+  /* ========================================================
+     بوابة التواصل المحمية والمشفرة (Secure Contact Decryption)
+     ======================================================== */
+  const _K = "MennaMathSecure2026";
+  function _sec(b64) {
+    try {
+      const raw = atob(b64);
+      let res = "";
+      for (let i = 0; i < raw.length; i++) {
+        res += String.fromCharCode(raw.charCodeAt(i) ^ _K.charCodeAt(i % _K.length));
+      }
+      return res;
+    } catch (e) {
+      return "";
+    }
+  }
+
+  const SECURE_PHONE = "f1VfXld0V0xfZVRS";
+
+  document.querySelectorAll("[data-contact='wa']").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const phone = _sec(SECURE_PHONE);
+      const text = "السلام عليكم أستاذة منه، أود الاستفسار عن دروس الرياضيات";
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+  });
 })();

@@ -435,14 +435,39 @@
   }
 
   /* ========================================================
-     10. نموذج الحجز المباشر بالواتساب (أ. منه خالد الهلبي)
+     10. قنوات التواصل والتسجيل المشفرة في الذاكرة (أ. منه خالد الهلبي)
      ======================================================== */
+  const _SEC_KEY = "MennaMathSecure2026";
+  function _sec(b64) {
+    try {
+      const raw = atob(b64);
+      let res = "";
+      for (let i = 0; i < raw.length; i++) {
+        res += String.fromCharCode(raw.charCodeAt(i) ^ _SEC_KEY.charCodeAt(i % _SEC_KEY.length));
+      }
+      return res;
+    } catch (e) {
+      return "";
+    }
+  }
+
+  const SECURE_CONTACTS = {
+    wa: "f1VfXld0V0xfZVRS",
+    phoneDisp: "ZldeTlB9QUJRZV1UQ0NU",
+    email: "IAAAAAAsDRwJPwQBHEpRCnBVWywMAkACIgw=",
+    fb: "JREaHhJ3TlsfJBJNExMGV1JdWSZLDQEMYhIcCSEATERLFFNoB3MVFS1B"
+  };
+
+  function sanitizeInput(str) {
+    return String(str || "").replace(/[<>{}[\]\\]/g, "").trim();
+  }
+
   window.handleBookingSubmit = function () {
-    const studentName = document.getElementById("student-name").value.trim();
-    const parentPhone = document.getElementById("parent-phone").value.trim();
-    const studentGrade = document.getElementById("student-grade").value;
-    const studyMode = document.getElementById("study-mode").value;
-    const studentNotes = document.getElementById("student-notes").value.trim();
+    const studentName = sanitizeInput(document.getElementById("student-name").value);
+    const parentPhone = sanitizeInput(document.getElementById("parent-phone").value);
+    const studentGrade = sanitizeInput(document.getElementById("student-grade").value);
+    const studyMode = sanitizeInput(document.getElementById("study-mode").value);
+    const studentNotes = sanitizeInput(document.getElementById("student-notes").value);
 
     if (!studentName || !parentPhone || !studentGrade || !studyMode) {
       alert("يرجى ملء جميع الحقول المطلوبة لتأكيد الحجز.");
@@ -460,12 +485,80 @@
     }
     message += `\nبرجاء التكرم بموافاتنا بالمواعيد المتاحة ومقرات الحصص أو رابط حصة الزوم. شكراً جزيلاً لحضرتك!`;
 
-    const teacherWhatsApp = "201069687611";
+    const teacherPhone = _sec(SECURE_CONTACTS.wa);
     const encodedMsg = encodeURIComponent(message);
-    const waUrl = `https://wa.me/${teacherWhatsApp}?text=${encodedMsg}`;
+    const waUrl = `https://wa.me/${teacherPhone}?text=${encodedMsg}`;
 
-    window.open(waUrl, "_blank");
+    window.open(waUrl, "_blank", "noopener,noreferrer");
   };
+
+  function initSecureContacts() {
+    // 1. حقن النصوص الظاهرة ديناميكياً في الـ DOM لمنع زواحف الإنترنت من قراءتها
+    const phoneDispEls = document.querySelectorAll("[data-contact-display='phone']");
+    const emailDispEls = document.querySelectorAll("[data-contact-display='email']");
+
+    phoneDispEls.forEach((el) => {
+      el.textContent = _sec(SECURE_CONTACTS.phoneDisp);
+    });
+
+    emailDispEls.forEach((el) => {
+      el.textContent = _sec(SECURE_CONTACTS.email);
+    });
+
+    // 2. معالجة نقرات أزرار وبطاقات التواصل
+    function getResolvedUrl(type, msgType) {
+      if (type === "wa") {
+        const phone = _sec(SECURE_CONTACTS.wa);
+        let msg = "السلام عليكم أستاذة منه، أود الاستفسار عن دروس الرياضيات";
+        if (msgType === "primary") {
+          msg = "السلام عليكم أستاذة منه، أود الاستفسار عن دروس المرحلة الابتدائية";
+        } else if (msgType === "prep") {
+          msg = "السلام عليكم أستاذة منه، أود الاستفسار عن دروس المرحلة الإعدادية";
+        }
+        return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      } else if (type === "fb") {
+        return _sec(SECURE_CONTACTS.fb);
+      } else if (type === "email") {
+        const mail = _sec(SECURE_CONTACTS.email);
+        return `https://mail.google.com/mail/?view=cm&fs=1&to=${mail}`;
+      }
+      return "#";
+    }
+
+    const contactEls = document.querySelectorAll("[data-contact]");
+    contactEls.forEach((el) => {
+      const type = el.getAttribute("data-contact");
+      const msgType = el.getAttribute("data-msg");
+
+      // تحديث الرابط عند التحويم أو اللمس لتوفير تجربة طبيعية
+      const hydrateHref = () => {
+        const resolved = getResolvedUrl(type, msgType);
+        if (el.getAttribute("href") === "#") {
+          el.setAttribute("href", resolved);
+          el.setAttribute("target", "_blank");
+          el.setAttribute("rel", "noopener noreferrer");
+        }
+      };
+
+      el.addEventListener("pointerenter", hydrateHref, { passive: true });
+      el.addEventListener("touchstart", hydrateHref, { passive: true });
+      el.addEventListener("focus", hydrateHref, { passive: true });
+
+      // الضغط المباشر
+      el.addEventListener("click", (e) => {
+        const resolved = getResolvedUrl(type, msgType);
+        if (resolved && resolved !== "#") {
+          if (type === "email" && !window.matchMedia("(min-width: 768px)").matches) {
+            // على الموبايل يمكن فتح تطبيق الإيميل المباشر
+            window.location.href = `mailto:${_sec(SECURE_CONTACTS.email)}`;
+          } else {
+            window.open(resolved, "_blank", "noopener,noreferrer");
+          }
+          e.preventDefault();
+        }
+      });
+    });
+  }
 
   /* ========================================================
      نظام حماية وتشفير صورة الأستاذة (Secure Canvas & Anti-Screenshot)
@@ -572,6 +665,7 @@
     initMethod();
     initAnimations();
     initSecurePortrait();
+    initSecureContacts();
   }
 
   if (document.readyState === "loading") {
