@@ -965,26 +965,6 @@ button {
   background: transparent;
 }
 
-.portrait-watermark {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  left: 14px;
-  z-index: 8;
-  pointer-events: none;
-  text-align: center;
-  font-size: 0.74rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(18, 12, 19, 0.75);
-  backdrop-filter: blur(8px);
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  letter-spacing: 0.04em;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
 .portrait-guard-overlay {
   position: absolute;
   inset: 0;

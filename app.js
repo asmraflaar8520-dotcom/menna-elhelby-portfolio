@@ -503,9 +503,6 @@
           const ch = canvas.height;
           ctx.drawImage(img, 0, 0, cw, ch);
 
-          // 2. دمج علامة مائية رقمية دائمة مباشرة على بكسلات الصورة
-          drawBakedWatermark(ctx, cw, ch);
-
           // إتلاف رابط الـ Blob المؤقت فوراً
           URL.revokeObjectURL(blobUrl);
         };
@@ -514,22 +511,6 @@
       } catch (err) {
         console.warn("Security engine initialized with fallback.");
       }
-    }
-
-    function drawBakedWatermark(context, w, h) {
-      context.save();
-      // علامة مائية أنيقة شفافة في أسفل الصورة
-      context.fillStyle = "rgba(18, 12, 19, 0.45)";
-      context.fillRect(0, h - 50, w, 50);
-
-      context.font = "bold 20px Alexandria, sans-serif";
-      context.fillStyle = "rgba(255, 255, 255, 0.45)";
-      context.textAlign = "center";
-      context.textBaseline = "middle";
-      context.shadowColor = "rgba(0, 0, 0, 0.7)";
-      context.shadowBlur = 4;
-      context.fillText("أ. منه خالد الهلبي • جميع الحقوق محفوظة", w / 2, h - 25);
-      context.restore();
     }
 
     // 3. منع كليك يمين والسحب والإفلات والحفظ
